@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Role;
 
 class DashboardController extends Controller
 {
     public function index(){
         if(Auth::user()->hasRole('admin')){
             
-            return view ('dashboard.admin_dashboard');
+            $users = User::all();
+
+            return view ('dashboard.admin_dashboard')->with('users', $users);
         }
         elseif(Auth::user()->hasRole('ceo')){
             return view ('dashboard.ceo_dashboard');
