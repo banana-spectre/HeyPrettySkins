@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 //Add Controllers here
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,8 +28,8 @@ Route::group(['middleware' => ['auth']], function(){
 //ADMIN ROUTES
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     //Put every links or URL or routes here for admin
-    Route::resource('/admin/users', AdminUserController::class);
-    Route::resource('/admin/products', AdminProductController::class);
+    Route::resource('/admin/users', UserController::class);
+    Route::resource('/admin/products', ProductController::class);
     
 
 });
