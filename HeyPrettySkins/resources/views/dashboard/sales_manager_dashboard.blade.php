@@ -10,6 +10,31 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in Sales Manager!
+                    <!--START OF RECENTLY ADDED PRODUCTS-->
+							<table class="box">
+								<tr>
+									<td><p class="header">Recently Added Products</p></td>
+								</tr>
+
+								<tr>
+									<td colspan="3"></td>
+								</tr>
+                                 @foreach ($productsRegisteredThisMonth as $item)
+								<tr>
+								    <td class="content col-4"><img src="{{ asset($item->product_image) }}"></td>
+                                    <td class="content col-4"><p>{{$item->product_name}}</p></td>								
+									<td class="content col-4"><p>Php {{$item->product_price}}</p></td>
+									
+								</tr>
+								<tr>
+									<td colspan="3"><hr></td>
+								</tr>
+								@endforeach
+							</table> 
+							<br>
+						</td>				
+					</tr>
+					<!--END OF RECENTLY ADDED PRODUCTS-->
                 </div>
             </div>
         </div>

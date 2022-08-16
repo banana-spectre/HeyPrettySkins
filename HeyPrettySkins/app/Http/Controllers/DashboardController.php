@@ -6,27 +6,64 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Products;
 
 class DashboardController extends Controller
 {
     public function index(){
         if(Auth::user()->hasRole('admin')){
             
-            $users = User::all();
+            $from = now()->startOfMonth();
+            $to = now();
 
-            return view ('dashboard.admin_dashboard')->with('users', $users);
+            $usersRegisteredThisMonth = User::whereBetween('created_at', [$from, $to])
+                                    ->get();
+            $productsRegisteredThisMonth = Products::whereBetween('created_at', [$from, $to])
+                                    ->get();
+
+            return view ('dashboard.admin_dashboard')
+            ->with('usersRegisteredThisMonth', $usersRegisteredThisMonth)
+            ->with('productsRegisteredThisMonth', $productsRegisteredThisMonth);
         }
         elseif(Auth::user()->hasRole('ceo')){
-            return view ('dashboard.ceo_dashboard');
+            $from = now()->startOfMonth();
+            $to = now();
+            
+            $productsRegisteredThisMonth = Products::whereBetween('created_at', [$from, $to])
+                                    ->get();
+
+            return view ('dashboard.ceo_dashboard')
+            ->with('productsRegisteredThisMonth', $productsRegisteredThisMonth);
         }
         elseif(Auth::user()->hasRole('executive_secretary')){
-            return view ('dashboard.executive_secretary_dashboard');
+            $from = now()->startOfMonth();
+            $to = now();
+            
+            $productsRegisteredThisMonth = Products::whereBetween('created_at', [$from, $to])
+                                    ->get();
+
+            return view ('dashboard.executive_secretary_dashboard')
+            ->with('productsRegisteredThisMonth', $productsRegisteredThisMonth);
         }
         elseif(Auth::user()->hasRole('sales_manager')){
-            return view ('dashboard.sales_manager_dashboard');
+            $from = now()->startOfMonth();
+            $to = now();
+            
+            $productsRegisteredThisMonth = Products::whereBetween('created_at', [$from, $to])
+                                    ->get();
+
+            return view ('dashboard.sales_manager_dashboard')
+            ->with('productsRegisteredThisMonth', $productsRegisteredThisMonth);
         }
         elseif(Auth::user()->hasRole('accounting_head')){
-            return view ('dashboard.accounting_head_dashboard');
+            $from = now()->startOfMonth();
+            $to = now();
+            
+            $productsRegisteredThisMonth = Products::whereBetween('created_at', [$from, $to])
+                                    ->get();
+
+            return view ('dashboard.accounting_head_dashboard')
+            ->with('productsRegisteredThisMonth', $productsRegisteredThisMonth);
         }
         elseif(Auth::user()->hasRole('warehouse_manager')){
             return view ('dashboard.warehouse_manager_dashboard');
