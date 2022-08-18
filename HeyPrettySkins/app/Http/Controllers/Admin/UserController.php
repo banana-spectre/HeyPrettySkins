@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use DB, Session, Hash, Input;
 
 class UserController extends Controller
 {
@@ -23,30 +24,61 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        User::create($input);
-        return redirect()->action([UserController::class, 'index'])
-        ->with('status', 'User Added!');
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users'
+          ]);
+        
+       
+
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+      if ($user->save()) {
+        return redirect()->route('users.show', $user->id);
+      } else {
+        Session::flash('danger', 'Sorry a problem occurred while creating this user.');
+        return redirect()->route('users.create');
+      }
     }
+
 
     public function show($id)
     {
-        $users = User::find($id);
-        return view('admin.users.show')->with('users', $users);
+        $user = User::findOrFail($id);
+        return view('admin.users.show')->withUser($user);
     }
 
     public function edit($id)
     {
-        $users = User::find($id);
-        return view('admin.users.edit')->with('users', $users);
+        $user = User::findOrFail($id);
+        return view('admin.users.edit')->withUser($user);
     }
 
     public function update(Request $request, $id)
     {
-        $users = User::find($id);
-        $input = $request->all();
-        $users->update($input);
-        return redirect('admin.users.index')->with('flash_message', 'User Updated!');
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,'.$id
+          ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+       
+        if ($request->password_options == 'manual') {
+            $user->password = Hash::make($request->password);
+          }
+        
+          if ($user->save()) {
+            return redirect()->route('users.show', $id);
+          } else {
+            Session::flash('error', 'There was a problem saving the updated user info to the database. Try again later.');
+            return redirect()->route('users.edit', $id);
+          }
     }
 
     public function destroy($id)

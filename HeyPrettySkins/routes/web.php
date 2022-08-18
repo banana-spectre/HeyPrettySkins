@@ -27,11 +27,11 @@ Route::group(['middleware' => ['auth']], function(){
 
 //ADMIN ROUTES
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    //Put every links or URL or routes here for admin
-    Route::resource('/admin/users', UserController::class);
-    Route::resource('/admin/products', ProductController::class);
-    
-
+    Route::prefix('admin')->group(function (){
+        //Put every links or URL or routes here for admin
+        Route::resource('users', UserController::class);
+        Route::resource('products', ProductController::class);
+    });
 });
 
 require __DIR__.'/auth.php';
