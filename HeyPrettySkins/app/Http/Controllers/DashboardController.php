@@ -17,9 +17,9 @@ class DashboardController extends Controller
             $to = now();
 
             $usersRegisteredThisMonth = User::whereBetween('created_at', [$from, $to])
-                                    ->get();
+                                    ->orderBy('created_at', 'DESC')->get();
             $productsRegisteredThisMonth = Products::whereBetween('created_at', [$from, $to])
-                                    ->get();
+                                    ->orderBy('created_at', 'DESC')->get();;
 
             return view ('dashboard.admin_dashboard')
             ->with('usersRegisteredThisMonth', $usersRegisteredThisMonth)

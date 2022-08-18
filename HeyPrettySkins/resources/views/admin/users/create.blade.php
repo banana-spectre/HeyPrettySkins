@@ -14,65 +14,46 @@
 
       <center>
         
-      <div class="create-users">
-        <p id="add-user">ADD USER</p>
-
-        <br>
-
-        <form action="{{ route('users.store') }}" method="post">
-              {!! csrf_field() !!}
-
-        <table>
-          <tr>
-            <td>
-              <label for="first-name">Name</label>
-              <br>
-              <input type="text" name="name" id="name" class="form-control"></br>
-            </td>
-           <tr>
-              <td>   
-                <br>
-                <label for="email">Email</label>
-                <br>
-                <input type="text" name="email" id="email" class="form-control"></br>
-              </td>
-
-              <td>
-              <br> &emsp;&emsp;
-              <label for="password">Password</label>
-              <br> &emsp;&emsp;
-              <input type="text" name="password" id="password" class="form-control"></br>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-              <br>
-              <label for="role">Role</label>
-              <br>
-                <label><input type="checkbox" name="role" value="admin">Admin</label>
-                <label><input type="checkbox" name="role" value="ceo">CEO</label>
-                <label><input type="checkbox" name="role" value="executive_secretary">Executive Secretary</label>
-                <label><input type="checkbox" name="role" value="sales_manager">Sales Manager</label>
-                <label><input type="checkbox" name="role" value="accounting_head">Accounting Head</label>
-                <label><input type="checkbox" name="role" value="warehouse_manager">Warehouse Manager</label>
-                <label><input type="checkbox" name="role" value="depot">Depot</label>
-            </tr>
-
-            <tr>
-              <td colspan="3">
-                <br>
-                <input type="submit" value="Save" class="btn btn-success">
-                <input type="button" onclick="window.location.href='/admin/users'" value="Close">
-                </form>
-              </td>
-            </tr>
-
-          </table>
-        <br>
-        </div>
-      </center>
+      <div class="flex-container">
+    <div class="columns m-t-10">
+      <div class="column">
+        <h1 class="title">Create New User</h1>
       </div>
+    </div>
+    <hr class="m-t-0">
+
+    <div class="columns">
+      <div class="column">
+        <form action="{{route('users.store')}}" method="POST">
+          {{csrf_field()}}
+          <div class="field">
+            <label for="name" class="label">Name</label>
+            <p class="control">
+              <input type="text" class="input" name="name" id="name">
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="email" class="label">Email:</label>
+            <p class="control">
+              <input type="text" class="input" name="email" id="email">
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="password" class="label">Password</label>
+            <p class="control">
+              <input type="text" class="input" name="password" id="password" placeholder="Manually give a password to this user">
+              <!--<b-checkbox name="auto_generate" class="m-t-15" v-model="auto_password">Auto Generate Password</b-checkbox>-->
+            </p>
+          </div>
+
+          <button class="button is-success">Create User</button>
+        </form>
+      </div>
+    </div>
+
+  </div> <!-- end of .flex-container -->
 
     <br>
                 </div>

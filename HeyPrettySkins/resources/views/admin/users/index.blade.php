@@ -47,12 +47,12 @@
 
                             <td id="col6">
                                 <div class="col-sm-1">
-                                    <a class="view" href="{{ url('/admin/users/' . $item->id) }}" 
+                                    <a class="view" href="{{ route ('users.show', $item->id) }}" 
                                     title="View User" target="_self">
                                     <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                                 </div><br>
                                 <div class="col-sm-1">
-                                    <a class="view" href="{{ url('/admin/users/edit/' . $item->id . '/edit') }}" 
+                                    <a class="view" href="{{ route ('users.edit', $item->id) }}" 
                                     title="Edit User" target="_self"><i class="fa fa-pencil-square-o" 
                                     aria-hidden="true"></i>Edit</a>
                                 </div><br>
