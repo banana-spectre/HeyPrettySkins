@@ -1,104 +1,184 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<head>
+    <link rel="shortcut icon" type="image/ico" href="{{ asset('pictures/icon.ico') }}"/>
+    <link rel="stylesheet" href="{{ asset('HeyPrettySkins.css') }}">
+</head>
+<body>
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
-                    </a>
-                </div>
+    <div class="container-fluid"> 
+			<div class="row align-items-center">
+				<div class="col-12">				
+					<table>
+						<tr>
+                            <!-- LOGO -->
+							<td class="col-xxl-3.5 col-xl-9 col-lg-4.5 col-md-11 col-sm-10 col-xs-1 hps"><a href="{{ route('dashboard') }}"><img src="{{asset('pictures/logo.png')}}"></a></td>
+							<td class="col-xxl-5.5 col-xl-0 col-lg-3 col-md-0 col-sm-1 col-xs-0.5"></td>
+							<td class="col-xxl-3 col-xl-3 col-lg-3.5 col-md-1 col-sm-1 col-xs-0.5 acc">
+								<!-- DROPDOWN -->
+								<div class="dropdown">
+									<button class="dropbtn"><img src="{{ asset('pictures/account-pic.png') }}"></button>
+									<div class="dropdown-content">
+										<div class="card">
+											<center><img src="{{ asset('pictures/account-pic.png') }}" alt="admin" style="width:40%; padding-top:30px; padding-bottom:20px;"></center>
+											<h2>{{ Auth::user()->name }}</h2>
+											<p class="title">{{ Auth::user()->email }}</p>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+                                                    <x-dropdown-link :href="route('logout')"
+                                                            onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
+
+											<p><button> {{ __('Log Out') }}</button></p>
+                                            </x-dropdown-link></form>
+
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+            <br>
+
+        <!--START OF SIDEBAR-->
+		<div id="sidebar">
+			<ul class="sidebar components"> <br>
+				<li><x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+					<span class="icon"><img src="{{ asset('pictures/home.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Dashboard') }}</span>
+				</x-nav-link></li>
+				<!-- ADMIN -->
                 @if (Auth::user()->hasRole('admin'))
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Products') }}
-                    </x-nav-link>
-                </div>
+				<br>	
+				<li><x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Products') }}</span>
+				</x-nav-link></li>
+
+				<br>	
+				<li><x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+					<span class="icon"><img src="{{ asset('pictures/users.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Users') }}</span>
+				</x-nav-link></li>
+                @endif	
+
+				<!-- WAREHOUSE MANAGER -->
+				@if (Auth::user()->hasRole('warehouse_manager'))
+				
+				<br>	
+				<li><x-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Inventory') }}</span>
+				</x-nav-link></li>
+				
+				<br>	
+				<li><x-nav-link :href="route('delivery_receipt.index')" :active="request()->routeIs('delivery_receipt.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Delivery Receipt') }}</span>
+				</x-nav-link></li>	
+
+				<br>	
+				<li><x-nav-link :href="route('product_requisiton_form.index')" :active="request()->routeIs('product_requisiton_form.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Product Requisition Form') }}</span>
+				</x-nav-link></li>	
+
+				<br>	
+				<li><x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Purchase Order Form') }}</span>
+				</x-nav-link></li>	
                 @endif
-            </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+				<!-- DEPOT -->
+				@if (Auth::user()->hasRole('depot'))
+				<br>	
+				<li><x-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Order Status') }}</span>
+				</x-nav-link></li>
+				
+				<br>
+				<li><x-nav-link :href="route('order.create')" :active="request()->routeIs('order.create')">
+					<span class="icon"><img src="{{ asset('pictures/order-requests.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Create Order') }}</span>
+				</x-nav-link></li>
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+				<br>
+				<li><x-nav-link :href="route('invoice.index')" :active="request()->routeIs('invoice.index')">
+					<span class="icon"><img src="{{ asset('pictures/order-requests.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Invoice') }}</span>
+				</x-nav-link></li>
+                @endif
 
-                    <x-slot name="content">
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+				 @if (Auth::user()->hasRole('ceo'))
+				 <br>	
+				<li><x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Purchase Order Form') }}</span>
+				</x-nav-link></li>				
+                @endif
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
+				@if (Auth::user()->hasRole('accounting_head'))
+				<br>	
+				<li><x-nav-link :href="route('acctng_invoice.index')" :active="request()->routeIs('acctng_invoice.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Invoice') }}</span>
+				</x-nav-link></li>	
+				
+				<br>	
+				<li><x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Purchase Order Form') }}</span>
+				</x-nav-link></li>	
+                @endif
 
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+				@if (Auth::user()->hasRole('executive_secretary'))
+				<br>	
+				<li><x-nav-link :href="route('store_issuance_voucher.index')" :active="request()->routeIs('store_issuance_voucher.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Store Issuance Voucher') }}</span>
+				</x-nav-link></li>	
+				
+				<br>	
+				<li><x-nav-link :href="route('exec_sec_order.index')" :active="request()->routeIs('exec_sec_order.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Orders') }}</span>
+				</x-nav-link></li>	
+
+				<br>	
+				<li><x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Purchase Order Form') }}</span>
+				</x-nav-link></li>	
+                @endif  
+
+				<!-- SALES MANAGER -->
+				@if (Auth::user()->hasRole('sales_manager'))
+				<br>	
+				<li><x-nav-link :href="route('sales_manager_order.index')" :active="request()->routeIs('sales_manager_order.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Orders') }}</span>
+				</x-nav-link></li>	
+
+				<br>	
+				<li><x-nav-link :href="route('store_issuance_voucher.index')" :active="request()->routeIs('store_issuance_voucher.index')">
+					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Store Issuance Voucher') }}</span>
+				</x-nav-link></li>	
+
+				<br>	
+				<li><x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
+					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
+					<span class="components-text">&emsp;{{ __('Purchase Order Form') }}</span>
+				</x-nav-link></li>	
+				@endif			
+                
+
+			</ul>
+		</div>
+        <!--END OF SIDEBAR-->
     </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
-    </div>
-</nav>
+</body>
