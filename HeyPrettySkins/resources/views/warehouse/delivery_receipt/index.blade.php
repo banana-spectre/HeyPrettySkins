@@ -18,17 +18,17 @@
                     <td>
                         <table class="col-12" >
                             <tr id="second-tablerow">
-                                <td width="475px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Date</b></td>
+                                <td width="375px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Date</b></td>
                                 <td width="680px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Order No.s Included</b></td>
-                                <td width="360px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Delivery Receipt</b></td>
+                                <td width="560px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Delivery Receipt</b></td>
                             </tr>
 
                             <tr><td><br></td></tr>
 
                             <tr>
-                                <td width="475px" class="product-info-col" style="padding-left:20px;">22 May 2022</td>
+                                <td width="375px" class="product-info-col" style="padding-left:20px;">22 May 2022</td>
                                 <td width="680px" class="product-info-col" style="padding-left:20px;">Order-007, Order-008</td>
-                                <td width="360px" class="product-info-col" style="padding-left:20px;">DLVRECEIPT-004.pdf</td>
+                                <td width="560px" class="product-info-col" style="padding-left:20px;">DLVRECEIPT-004.pdf</td>
                             </tr> 
 
                             <tr>
