@@ -890,16 +890,16 @@ a, a:hover, a:focus {
 	 z-index: 1;
   }
    
-  .sub-menu-contents-2 x-nav-link {
+  .sub-menu-components-2 x-nav-link {
+	background-color: white;
 	color: #444;
-	position: relative;
   }
    
-	li.sub-menu-2, li.sub-menu-2:hover .sub-menu-contents-2  {
-	  display: block!important;
+	.sub-menu-list:hover, .sub-menu-2:hover .sub-menu-contents-2:hover  {
+	  display: block;
 	}
    
-	li.sub-menu-2 .sub-menu-contents-2:hover x-nav-link {
+	.sub-menu-2 .sub-menu-contents-2:hover x-nav-link {
 	/*background: White;*/
 	color: #F42B6D;
 	border-radius: 10px 10px 10px 10px;

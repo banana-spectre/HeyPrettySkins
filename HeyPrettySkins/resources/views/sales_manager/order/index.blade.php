@@ -21,6 +21,7 @@
                         <td width="400rem" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Date</b></td>
                         <td width="400rem" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Total</b></td>
                         <td width="300rem" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;"><b>Status</b></td>
+                        <th width="180rem" class="users-info-col" style="text-align:center; color:white; font-size: 1.2vw;">Action</th>
                     </tr>
 
                     <tr><td><br></td></tr>
@@ -36,10 +37,15 @@
                                 <option value="Waitlisted">Not Accepted</option>
                             </select>
                         </td>
+                        <td width="100rem" class="product-info-col">
+                                <center>
+                                <div class="col-sm-1"> <a class="view" href="#" title="View Product" target="_self"><i class="fa fa-eye" aria-hidden="true"></i>View</a></div>
+                                </center>
+                            </td>
                     </tr> 
 
                     <tr>
-                        <td colspan="4"><hr></td>
+                        <td colspan="5"><hr></td>
                     </tr>
 
                     <tr><td></td></tr>
