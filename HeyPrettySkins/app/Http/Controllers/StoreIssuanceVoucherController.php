@@ -13,7 +13,7 @@ class StoreIssuanceVoucherController extends Controller
      */
     public function index()
     {
-        //
+        return view ('store_issuance_voucher.index');
     }
 
     /**

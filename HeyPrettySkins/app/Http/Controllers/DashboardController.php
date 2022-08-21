@@ -85,5 +85,17 @@ class DashboardController extends Controller
         }
     }
 
+    public function destroy($id){
+        $products = Products::find($id);
+        $total_qty->delete();
+
+        //Session::flash('message', 'Successfully deleted the product!');
+        //return redirect()->route('products.index');
+        return view ('dashboard.warehouse_manager_dashboard')
+            ->with('products', $products)->with('total_qty', $total_qty);
+
+
+    }
+
     
 }

@@ -8,6 +8,9 @@
                 <td class="col-11"> <p id="title"><b>Inventory List As Of</p> </td>
                 <td class="col-1"><a href="{{ route ('inventory.create') }}"><button id="add-button" name="add stocks" title="Edit Stocks"> In-Out </button></a></td>
             </tr>
+            <tr>
+                <td class="mt-2">@include('layouts.messages')</td>
+            </tr>
         </table>
 
         <table id="search-bar">
@@ -62,7 +65,7 @@
 
         <table id="download">
             <tr>
-                <td><a href="{{ url ('warehouse_manager/inventory/view-pdf') }}"><button>Download Inventory List</button></a></td>
+                <td><a href="{{ route ('inventory.view-pdf') }}"><button>Download Inventory List</button></a></td>
             </tr>
         </table>     
         <br>

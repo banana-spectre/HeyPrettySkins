@@ -28,16 +28,14 @@ class InventoryController extends Controller
         $request_data = $request->all();
         Inventory::create($request_data);
 
-        return redirect()->route('inventory.index')->with('status', 'Record Added!');
+        return redirect()->route('inventory.index');
 
     }
 
     public function show($id)
     {
-        $inventory = Inventory::all();
-        $product_name = Products::where('id', $id)->value('product_name');
-
-        return view('warehouse.inventory.show')->with('inventory', $inventory);
+        $inventory_item = Inventory::all();
+        return view('warehouse.inventory.view-pdf',compact('inventory_item'));
     }
 
     public function edit($id)
@@ -55,7 +53,8 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         Inventory::destroy($id);
-        return redirect()->route('inventory.index')->with('flash_message', 'Inventory Record deleted!');
+        
+        return redirect()->route('inventory.index');
     }
 
     public function search(Request $request)

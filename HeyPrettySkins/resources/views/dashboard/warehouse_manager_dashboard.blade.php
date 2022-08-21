@@ -56,7 +56,7 @@
 							<td><hr></td>
 						</tr>
 						@foreach ($total_qty as $item)
-						<tr height="142px">
+						<tr height="190rem">
 							<td class="overview">
 								<p style="font-weight:bold; text-align:center;">{{ $item->total_qty}}</p></td>
 						</tr> 

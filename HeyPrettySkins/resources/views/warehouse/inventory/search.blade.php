@@ -59,11 +59,11 @@
         </table>
         <br><br>
 
-        <table id="download">
+        <!-- <table id="download">
             <tr>
                 <td><a href="{{ url ('warehouse_manager/inventory/view-pdf') }}"><button>Download Inventory List</button></a></td>
             </tr>
-        </table>     
+        </table>   -->  
         <br>
 
 </div>

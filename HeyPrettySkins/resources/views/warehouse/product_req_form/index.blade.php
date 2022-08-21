@@ -1,58 +1,41 @@
-<!-- VIEW PRODUCT REQUISITION FORMS -->
+<x-app-layout>
+    <x-slot name="header"></x-slot>
+
 <div class="container-fluid"> 
 
-        <table class="prod-req-first-tablerow">
-            <tr>
-                <td> <p id="prod-req"><b>Product Requisition Form</p> </td>
-            </tr>
-        </table>
+    <table class="first-tablerow">
+        <tr>
+            <td class="col-12"> <p id="products-info"><b>Product Requisition Form</p> </td>
+        </tr>
+    </table>
         
-        <br>
+    <table  class="contain">
+        <tr>
+            <td><INPUT type="checkbox" name="chk"/>&emsp;</td>
+            <td><input type="text" placeholder="Product Name" name="product_details" id="product_details" class="form-control delivery-date">&emsp;</td>                                  
+            <td>
+                <select name="product_unit" id="product_unit" class="form-control" placeholder="Product Unit">
+                    <option disabled selected hidden>Product Unit</option>
+                    <option value="BOX">BOX</option>
+                    <option value="PCS">PCS</option>
+                </select> &emsp;
+            </td>                                  
+            <td><input type="number" placeholder="Quantity" name="product_details" id="product_details" class="form-control delivery-date">&emsp;</td>                                  
+            <td><input type="text" placeholder="Code" name="product_details" id="product_details" class="form-control delivery-date">&emsp;</td>                                                     
+        </tr>
+    </table>
 
-        <div>   
-  
-        <!--products-->      
-        <table id="prod-req-head">
-            <tr>
-                <th></th>
-            </tr>
-        </table>
+    <table class="buttons-container">
+        <tr>
+            <td width="200px"></td>
+            <td width="100px">&emsp;</td>                                  
+            <td width="200px"><INPUT type="button" value="Delete Row" title="Delete Row" onclick="deleteRow('dataTable')"></td>                                  
+            <td width="200px"><INPUT type="button" value="Add Row" title="Add Row" onclick="addRow('dataTable')"></td>                                  
+            <td width="200px">&emsp;</td>                                                     
+            <td width="10px"><INPUT type="submit" title="Submit" value="Submit" onclick="myFunction()"/></td>
+        </tr>
+    </table>
 
-        <br>
-
-            <table id="dataTable" class="prod-req-container">
-                <tr>
-                    <td><INPUT type="checkbox" name="chk"/>&emsp;</td>
-                    <td><input type="text" placeholder="Product Name" name="product_details" id="product_details" class="form-control delivery-date">&emsp;</td>                                  
-                    <td>
-                        <select name="product_unit" id="product_unit" class="form-control" placeholder="Product Unit">
-                            <option disabled selected hidden>Product Unit</option>
-                            <option value="BOX">BOX</option>
-                            <option value="PCS">PCS</option>
-                        </select>
-                        &emsp;
-                    </td>                                  
-                    <td><input type="number" placeholder="Quantity" name="product_details" id="product_details" class="form-control delivery-date">&emsp;</td>                                  
-                    <td><input type="text" placeholder="Code" name="product_details" id="product_details" class="form-control delivery-date">&emsp;</td>                                                     
-                    <td><br><br><br></td>
-                </tr>
-            </table>
-
-            <br><br>
-
-            <table class="buttons-container">
-                <tr>
-                    <td width="200px"><INPUT type="button" value="Add Product" title="Add Product" onclick="addRow('dataTable')" /></td>
-                    <td width="10px">&emsp;</td>                                  
-                    <td width="200px"><INPUT type="button" value="Delete Product" title="Delete Product" onclick="deleteRow('dataTable')" /></td>                                  
-                    <td width="200px">&emsp;</td>                                  
-                    <td width="800px">&emsp;</td>                                                     
-                    <td width="10px"><INPUT type="submit" title="Submit Form" value="Submit Form" onclick="myFunction()"/></td>
-                </tr>
-            </table>
-
-
-        </div>
 </div>
 
 <script>
@@ -112,15 +95,6 @@
 </script>
 
 <script>
-        function increment() {
-        document.getElementById('demoInput').stepUp();
-        }
-        function decrement() {
-            document.getElementById('demoInput').stepDown();
-        }
-</script>
-
-<script>
     function myFunction() {
     let text = "Is everything correct?";
     if (confirm(text) == true) {
@@ -131,3 +105,5 @@
     document.getElementById("demo").innerHTML = text;
     }
 </script>
+<br><br>
+</x-app-layout>

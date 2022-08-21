@@ -41,7 +41,8 @@ class UserController extends Controller
         $user->attachRole($role);
 
         
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')
+            ->withSuccess(__('User created successfully.'));
 
       // if ($user->save()) {
       //   return redirect()->route('users.show', $user->id);
@@ -82,7 +83,8 @@ class UserController extends Controller
         $user->save();
 
         $user->syncRoles(explode(',', $request->role));
-        return redirect()->route('users.show', $id);
+        return redirect()->route('users.index', $id)
+            ->withSuccess(__('User updated successfully.'));
         //   if ($user->save()) {
         //     return redirect()->route('users.show', $id);
         //   } else {
@@ -97,6 +99,7 @@ class UserController extends Controller
         $user->delete();
 
         Session::flash('message', 'Successfully deleted the product!');
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')
+            ->withSuccess(__('User deleted successfully.'));
     }
 }

@@ -5,7 +5,7 @@
 
         <table class="first-tablerow">
             <tr>
-                <td class="col-11"> <p id="title"><b>Your Orders:</p> </td>
+                <td class="col-12"> <p id="title"><b>Your Orders:</p> </td>
             </tr>
         </table>
             
@@ -14,32 +14,33 @@
                 <td>
                     <table class="col-12">
                         <tr id="second-tablerow">
-                            <th class="sales-name" width="50px">&emsp;#</th>
-                            <th class="sales-name" width="230px" style="padding-left:20px;">Date</th>
-                            <th class="sales-name" width="200px" style="padding-left:20px;">Area</th>
-                            <th class="sales-name" width="200px" style="padding-left:20px;">Code</th>
-                            <th class="sales-name" width="435px" style="padding-left:20px;">Product</th>
-                            <th class="sales-name" width="100px" style="text-align:center;">InOut</th>
-                            <th class="sales-name" width="230px" style="padding-left:20px;">BB</th>
-                            <th class="sales-name" width="200px" style="text-align:center;">Quantity</th>
+                            <th class="sales-name" width="50rem">&emsp;#</th>
+                            <th class="sales-name" width="400rem" style="padding-left:20px;">Order Number</th>
+                            <th class="sales-name" width="350rem" style="padding-left:20px;">Date</th>
+                            <th class="sales-name" width="300rem" style="padding-left:20px;">Total</th>
+                            <th class="sales-name" width="400rem" style="padding-left:20px;">Status</th>
+                            <th class="sales-name" width="100rem" style="padding-left:20px;">Action</th>
                         </tr>
+
+                        <tr><td><br></td></tr>
+
+                        @foreach ($orders as $order)
                         <tr>
-                            <td><br></td>
-                        </tr>
-                  
-                        <tr>
-                            <td class="sales-info" width="50px">&emsp;</td>
-                            <td class="sales-info" width="230px" style="padding-left:20px;"></td>
-                            <td class="sales-info" width="200px" style="padding-left:20px;"></td>
-                            <td class="sales-info" width="200px" style="padding-left:20px;"></td>
-                            <td class="sales-info" width="435px" style="padding-left:20px;"></td>
-                            <td class="sales-info" width="100px" style="text-align:center;"></td>
-                            <td class="sales-info" width="230px" style="padding-left:20px;"></td>
-                            <td class="sales-info" width="200px" style="text-align:center;"></td>
+                            <td class="sales-info" width="50rem"><b>&emsp;1</b></td>
+                            <td class="sales-info" width="400rem" style="padding-left:20px;">{{ $order->id }}</td>
+                            <td class="sales-info" width="350rem" style="padding-left:20px;">{{ $order->created_at }}</td>
+                            <td class="sales-info" width="300rem" style="padding-left:20px;">{{ $order->total}}</td>
+                            <td class="sales-info" width="400rem" style="padding-left:20px;">----</td>
+                            <td width="100rem" class="product-info-col">
+                                <center>
+                                <div class="col-sm-1"> <a class="view" href="#" title="View Product" target="_self"><i class="fa fa-eye" aria-hidden="true"></i>View</a></div>
+                                </center>
+                            </td>
                         </tr> 
                         <tr>
                             <td colspan="8"><br><hr><br></td>
                         </tr>
+                        @endforeach
                 
                     </table>                   
                 </td>

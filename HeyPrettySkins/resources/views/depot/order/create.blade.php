@@ -5,130 +5,67 @@
 
         <table class="first-tablerow">
             <tr>
-                <td class="col-12"> <p id="order-products"><b>Order Products</p> </td>
+                <td class="col-12"> <p id="users-info"><b>Order Products</p> </td>
             </tr>
         </table>
         
-        <div>  
+        <form action="{{ route('order.store') }}" method="post">
+                @csrf
 
-            <form action="{{ route('order.store') }}" method="post">
-                    @csrf
+            <table class="contain">
+            <tr>
+                <td>
+                    <table class="col-12">
+                        <tr id="second-tablerow">
+                            <th width="40rem" class="users-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;">#</th>
+                            <th width="450rem" class="users-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;">Product Name</th>
+                            <th width="200rem" class="users-info-col" style="text-align:center; color:white; font-size: 1.2vw;">Product Unit</th>
+                            <th width="300rem" class="users-info-col" style="text-align:center; color:white; font-size: 1.2vw;">Price</th>
+                            <th width="300rem" class="users-info-col" style="text-align:center; color:white; font-size: 1.2vw;">QTY</th>
+                            <th width="200rem" class="users-info-col" style="text-align:center; color:white; font-size: 1.2vw;">Total</th>
+                        </tr>            
+                        @foreach ($products as $item) 
+                        <tr>
+                            <td width="40rem" class="users-info-col" style="padding-left:20px;"><b>{{ $loop->iteration }}</b></td> 
+                            <td width="500rem" class="users-info-col" style="padding-left:20px;">{{ $item->product_name }}</td>                                                                                 
+                            <td width="200rem" class="users-info-col" style="text-align:center;">{{ $item->product_details }}</td>
+                            <td width="300rem" class="users-info-col" style="text-align:center;"><input type="hidden" class="product_price" value="{{ $item->product_price }}">Php {{ $item->product_price }}</td>                                  
+                            <td width="300rem" class="users-info-col" style="text-align:center;"><input type="number" placeholder="Quantity" onchange="subTotal()" class="order_qty" value="$value[order_qty]"></td>                                                     
+                            <td width="200rem" class="total_price" class="users-info-col" style="text-align:center;"></td>                                  
+                        </tr>
+                        
+                        @endforeach  
+                    </table>
 
-                <table class="contain">
-                    <tr id="second-tablerow">
-                        <th width="60px" class="order-products-col-1">#</th>
-                        <th width="500px" class="order-products-col-1">Product Name</th>
-                        <th width="400px" class="order-products-col-1">Product Unit</th>
-                        <th width="250px" class="order-products-col-1" style="text-align:center; padding-left:0px;">Price</th>
-                        <th width="200px" class="order-products-col-1" style="text-align:center; padding-left:0px;">Quantity</th>
-                        <th width="200px" class="order-products-col-1" style="text-align:center; padding-left:0px;">Total</th>
-                    </tr>            
-                    @foreach ($products as $item) 
-                    <tr>
-                        <td width="60px" class="order-products-col-2"><b>{{ $loop->iteration }}</b></td> 
-                        <td width="500px" class="order-products-col-2">{{ $item->product_name }}</td>                                                                                 
-                        <td width="400px" class="order-products-col-2">{{ $item->product_details }}</td>
-                        <td width="250px" class="order-products-col-2" style="text-align:center; padding-left:0px;"><input type="hidden" class="product_price" value="{{ $item->product_price }}">Php {{ $item->product_price }}</td>                                  
-                        <td width="100px" class="order-products-col-2" style="text-align:center; padding-left:0px;"><input type="number" placeholder="Quantity" onchange="subTotal()" class="order_qty" value="$value[order_qty]"></td>                                                     
-                        <td width="200px" class="total_price" class="order-products-col-2" style="text-align:center; padding-left:0px;"></td>                                  
-                    </tr>                   
-                    @endforeach  
-                </table>
-
-                <table class="contain">
-                    <tr id="total">
-                        <th width="60px"></th>
-                        <th width="500px"></th>
-                        <th width="400px"></th>
-                        <th width="300px"></th>
-                        <th width="200px">Total:</th>
-                        <th width="200px" id="order_total_price"></th>
-                    </tr>
-                    <tr><td><br></td></tr>
-                </table>    
-
-                <br><br>
-
-                <table class="buttons-container">
-                    <tr>
-                        <th width="60px"></th>
-                        <th width="500px"></th>
-                        <th width="400px"></th>
-                        <th width="300px"></th>
-                        <th width="200px"></th>
-                        <th width="200px"><INPUT type="submit" title="Submit Form" value="Submit Form" onclick="myFunction()"/></th>
-                    </tr>
-                </table>
-                </form>
-
-        <br>
-        </div>
+                    <table class="contain">
+                        <tr>
+                            <th width="40rem"></th>
+                            <th width="500rem"></th>
+                            <th width="200rem"></th>
+                            <th width="300rem"></th>
+                            <th width="300rem" class="users-info-col" style="text-align:right; font-size: 1.4vw;">Total:</th>
+                            <th width="200rem" id="order_total_price" class="users-info-col" style="text-align:right; font-size: 1.4vw;"></th>
+                        </tr>
+                        <tr><td><br></td></tr>
+                    </table>    
+                    <br>
+                </td>
+            </tr>
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <th width="40rem"></th>
+                    <th width="500rem"></th>
+                    <th width="200rem"></th>
+                    <th width="300rem"></th>
+                    <th width="300rem"></th>
+                    <th width="200rem"><INPUT id="add-button" type="submit" title="Submit" value="Submit" onclick="myFunction()"/></th>
+                </tr>
+            </table>
+        </form>
+<br>
 </div>
-
-<script>
-		function addRow(tableID) {
-
-			var table = document.getElementById(tableID);
-
-			var rowCount = table.rows.length;
-			var row = table.insertRow(rowCount);
-
-			var colCount = table.rows[0].cells.length;
-
-			for(var i=0; i<colCount; i++) {
-
-				var newcell	= row.insertCell(i);
-
-				newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-				//alert(newcell.childNodes);
-				switch(newcell.childNodes[0].type) {
-					case "text":
-							newcell.childNodes[0].value = "";
-							break;
-					case "checkbox":
-							newcell.childNodes[0].checked = false;
-							break;
-					case "select-one":
-							newcell.childNodes[0].selectedIndex = 0;
-							break;
-				}
-			}
-		}
-
-		function deleteRow(tableID) {
-			try {
-			var table = document.getElementById(tableID);
-			var rowCount = table.rows.length;
-
-			for(var i=0; i<rowCount; i++) {
-				var row = table.rows[i];
-				var chkbox = row.cells[0].childNodes[0];
-				if(null != chkbox && true == chkbox.checked) {
-					if(rowCount <= 1) {
-						alert("Cannot delete all the rows.");
-						break;
-					}
-					table.deleteRow(i);
-					rowCount--;
-					i--;
-				}
-
-
-			}
-			}catch(e) {
-				alert(e);
-			}
-		}
-</script>
-
-<script>
-        function increment() {
-        document.getElementById('demoInput').stepUp();
-        }
-        function decrement() {
-            document.getElementById('demoInput').stepDown();
-        }
-</script>
 
 <script>
     function myFunction() {
@@ -165,5 +102,4 @@
     subTotal();
 
 </script>
-
 </x-app-layout>

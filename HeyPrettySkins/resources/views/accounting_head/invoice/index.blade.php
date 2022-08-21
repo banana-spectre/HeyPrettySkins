@@ -1,3 +1,6 @@
+<x-app-layout>
+    <x-slot name="header"> </x-slot>
+
 <!-- UPLOAD INVOICE -->
 <div class="container-fluid">
 
@@ -72,3 +75,4 @@
 		document.getElementById("demo").innerHTML = text;
 		}
 	</script>
+</x-app-layout>

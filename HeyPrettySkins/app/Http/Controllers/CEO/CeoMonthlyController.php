@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ceo;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PurchasOrderFormController extends Controller
+class CeoMonthlyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,7 @@ class PurchasOrderFormController extends Controller
      */
     public function index()
     {
-        return view ('purchase_order_form.index');
+        return view ('ceo.monthly_sales.index');
     }
 
     /**

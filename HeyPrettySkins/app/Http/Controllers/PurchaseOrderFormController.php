@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Accounting_Head;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AcctngInvoiceController extends Controller
+class PurchaseOrderFormController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class AcctngInvoiceController extends Controller
      */
     public function index()
     {
-        return view ('accounting_head.invoice.index');
+        return view ('purchase_order_form.index');
     }
 
     /**

@@ -1,14 +1,15 @@
 <x-app-layout>
-    <x-slot name="header"></x-slot>
+    <x-slot name="header"> </x-slot>
+
 <div class="container-fluid"> 
-    <div class="row">
+
+    <center><img src="{{asset('pictures/logo.png')}}"></center>
+
+    <br><br>
 
         <table class="contain">
             <tr>
                 <td>
-
-                    <img src="{{asset('pictures/logo.png')}}">
-                    
                     <table class="col-12">
                         <tr id="second-tablerow">
                             <th class="sales-name" width="50px">&emsp;#</th>
@@ -23,9 +24,11 @@
                         <tr>
                             <td><br></td>
                         </tr>
-                        @foreach ($inventory as $item)
+
+                        <tbody>
+                        @foreach ($inventory_item as $item)
                         <tr>
-                            <td class="sales-info" width="50px">&emsp;{{ $loop->iteration }}</td>
+                            <td class="sales-info" width="50px"><b>&emsp;{{ $loop->iteration }}</b></td>
                             <td class="sales-info" width="230px" style="padding-left:20px;">{{ $item->transac_date }}</td>
                             <td class="sales-info" width="200px" style="padding-left:20px;">{{ $item->area }}</td>
                             <td class="sales-info" width="200px" style="padding-left:20px;">{{ $item->code }}</td>
@@ -38,12 +41,14 @@
                             <td colspan="8"><br><hr><br></td>
                         </tr>
                         @endforeach
+                        </tbody>
                     </table>                   
                 </td>
             </tr>        
         </table>
-            </td>
-            </tr>
-        </table>
+
+
+</div>
+
 
 </x-app-layout>

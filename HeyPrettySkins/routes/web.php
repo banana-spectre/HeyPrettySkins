@@ -13,9 +13,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
 
 //CEO
+use App\Http\Controllers\CEO\CeoMonthlyController;
 
 //Executive Secretary
-use App\Http\Controllers\Excecutive_Secretary\ExecOrderController;
+use App\Http\Controllers\Executive_Secretary\ExecOrderController;
 
 //Sales Manager
 use App\Http\Controllers\Sales_Manager\SM_orderController;
@@ -24,7 +25,9 @@ use App\Http\Controllers\Accounting_Head\AcctngInvoiceController;
 
 //Warehouse Manager
 use App\Http\Controllers\Warehouse_Manager\InventoryController;
+
 use App\Http\Controllers\Warehouse_Manager\PDFController;
+
 use App\Http\Controllers\Warehouse_Manager\ProdReqFormController;
 use App\Http\Controllers\Warehouse_Manager\DeliveryReceiptController;
 
@@ -57,18 +60,15 @@ Route::group(['middleware' => ['auth']], function(){
 
 //SHARED ROUTES BY TWO OR MORE USERS
 Route::group(['middleware' => ['auth', 'role:executive_secretary|sales_manager|depot']], function(){
-    Route::prefix('store_issuance_voucher')->group(function (){
         //Put every links or URL or routes here for admin
         Route::resource('store_issuance_voucher', StoreIssuanceVoucherController::class);
     });
-});
 
 Route::group(['middleware' => ['auth', 'role:executive_secretary|sales_manager|depot|ceo|accounting_head|warehouse']], function(){
-    Route::prefix('purchase_order_form')->group(function (){
         //Put every links or URL or routes here for admin
         Route::resource('purchase_order_form', PurchaseOrderFormController::class);
     });
-});
+
 
 //ADMIN ROUTES
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
@@ -83,13 +83,15 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 Route::group(['middleware' => ['auth', 'role:ceo']], function(){
     Route::prefix('ceo')->group(function (){
         //Put every links or URL or routes here for admin
+        Route::resource('ceo_monthly_sales_report', CeoMonthlyController::class);
+
     });
 });
 
 //EXECUTIVE SECRETARY ROUTES
 Route::group(['middleware' => ['auth', 'role:executive_secretary']], function(){
     Route::prefix('exec_secretary')->group(function (){
-        //Put every links or URL or routes here for admin
+        //Put every links or URL or routes here for exe
         Route::resource('exec_sec_order', ExecOrderController::class);
     });
 });
@@ -97,7 +99,7 @@ Route::group(['middleware' => ['auth', 'role:executive_secretary']], function(){
 //SALES MANAGER ROUTES
 Route::group(['middleware' => ['auth', 'role:sales_manager']], function(){
     Route::prefix('sales_manager')->group(function (){
-        //Put every links or URL or routes here for admin
+        //Put every links or URL or routes here for sales
         Route::resource('sales_manager_order', SM_orderController::class);
     });
 });
@@ -105,19 +107,19 @@ Route::group(['middleware' => ['auth', 'role:sales_manager']], function(){
 //ACCOUNTING HEAD ROUTES
 Route::group(['middleware' => ['auth', 'role:accounting_head']], function(){
     Route::prefix('accounting_head')->group(function (){
-        //Put every links or URL or routes here for admin
+        //Put every links or URL or routes here for acc
         Route::resource('acctng_invoice', AcctngInvoiceController::class);
     });
-});
-
+}); 
 //WAREHOUSE MANAGER ROUTES
 Route::group(['middleware' => ['auth', 'role:warehouse_manager']], function(){
     Route::prefix('warehouse_manager')->group(function (){
-        //Put every links or URL or routes here for admin
+        //Put every links or URL or routes here for warehouse
+        
         Route::get("/inventory/search/", [InventoryController::class, 'search']);
-        //Route::get("/inventory/show/", [InventoryController::class, 'show']);
-        Route::resource('inventory', InventoryController::class); 
-        Route::get('/inventory/view-pdf',[PDFController::class,'getAllInventory']);
+        Route::get("/inventory/view-pdf", 'App\Http\Controllers\Warehouse_Manager\PDFController@getAllInventory')->name('inventory.view-pdf');
+        Route::resource('inventory', InventoryController::class);
+
         Route::resource('delivery_receipt', DeliveryReceiptController::class);
         Route::resource('product_requisiton_form', ProdReqFormController::class);
     });
@@ -126,9 +128,9 @@ Route::group(['middleware' => ['auth', 'role:warehouse_manager']], function(){
 //DEPOT ROUTES
 Route::group(['middleware' => ['auth', 'role:depot']], function(){
     Route::prefix('depot')->group(function (){
-        //Put every links or URL or routes here for admin
+        //Put every links or URL or routes here for depot
         Route::resource('order', OrderController::class);
-        Route::resource('invoice', InvoiceCntroller::class);
+        Route::resource('invoice', InvoiceController::class);
     });
 });
 

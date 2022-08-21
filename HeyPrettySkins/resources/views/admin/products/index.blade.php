@@ -8,13 +8,16 @@
                 <td class="col-11"> <p id="products-info"><b>Products Information</p> </td>
                 <td class="col-1"> <a href="{{ route ('products.create') }}" title="Add New Product"><button id="add-button">+New</button></a> </td>
             </tr>
+            <tr>
+                <td class="mt-2">@include('layouts.messages')</td>
+            </tr>
         </table>
         
         <table class="contain">
             <tr>
                 <td>
 
-                    <table class="col-12" >
+                    <table class="col-12">
                         <tr id="second-tablerow">
                             <th width="20px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;">#</th>
                             <th width="300px" class="product-info-col" style="padding-left:20px; color:white; font-size: 1.2vw;">Product Image</th>

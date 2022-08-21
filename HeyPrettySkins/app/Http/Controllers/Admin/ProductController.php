@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Products::paginate('10');
+        $products = Products::paginate('20');
         return view ('admin.products.index')->with('products',$products);
     }
 
@@ -34,7 +34,8 @@ class ProductController extends Controller
         $request_data["product_image"] = '/storage/'.$path;
         Products::create($request_data);
         
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->withSuccess(__('Product created successfully.'));
         
     }
 
@@ -66,7 +67,9 @@ class ProductController extends Controller
 
         $products->update($input);
 
-        return redirect()->route('products.show', $id);
+        return redirect()->route('products.index', $id)
+            ->withSuccess(__('Product updated successfully.'));
+        
     }
 
     public function destroy($id)
@@ -74,8 +77,10 @@ class ProductController extends Controller
         $product = Products::find($id);
         $product->delete();
 
-        Session::flash('message', 'Successfully deleted the product!');
-        return redirect()->route('products.index');
+        //Session::flash('message', 'Successfully deleted the product!');
+        //return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->withSuccess(__('Product deleted successfully.'));
 
     }
 }

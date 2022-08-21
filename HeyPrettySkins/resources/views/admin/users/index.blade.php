@@ -10,6 +10,9 @@
                     <button id="add-button"> +New </button>
                 </a></td>
             </tr>
+            <tr>
+                <td class="mt-2">@include('layouts.messages')</td>
+            </tr>
         </table>
 		
         <!--users-->
