@@ -4,82 +4,83 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Products;
+use DB, Session, Hash, Input;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view ('admin.products');
+        $products = Products::paginate('20');
+        return view ('admin.products.index')->with('products',$products);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view ('admin.products.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $request_data = $request->all();
+        $file_name = time() . $request->file('product_image')->getClientOriginalName();
+        $path = $request->file('product_image')->storeAs('product_image',$file_name,'public');
+        $request_data["product_image"] = '/storage/'.$path;
+        Products::create($request_data);
+        
+        return redirect()->route('products.index')
+            ->withSuccess(__('Product created successfully.'));
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $product = Products::findOrFail($id);
+        return view ('admin.products.show')->with('product', $product);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $product = Products::findOrFail($id);
+        return view ('admin.products.edit')->with('product', $product);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $products = Products::find($id);
+
+        $input = $request->all();
+
+        $file_name = time() . $request->file('product_image')->getClientOriginalName();
+        $path = $request->file('product_image')->storeAs('product_image',$file_name,'public');
+        $input["product_image"] = '/storage/'.$path;
+
+        $products->update($input);
+
+        return redirect()->route('products.index', $id)
+            ->withSuccess(__('Product updated successfully.'));
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $product = Products::find($id);
+        $product->delete();
+
+        //Session::flash('message', 'Successfully deleted the product!');
+        //return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->withSuccess(__('Product deleted successfully.'));
+
     }
 }

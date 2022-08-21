@@ -1,63 +1,57 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Users page!
-                    <div class="row">
-
-      <center>
+    <x-slot name="header"></x-slot>
         
-      <div class="flex-container">
-    <div class="columns m-t-10">
-      <div class="column">
-        <h1 class="title">Create New User</h1>
-      </div>
-    </div>
-    <hr class="m-t-0">
-
-    <div class="columns">
-      <div class="column">
+  <div class="container-fluid">
+    <div class="row">
+      <center>       
+      <div id="create-users-container">
+        <p id="create-user">CREATE USER</p>
         <form action="{{route('users.store')}}" method="POST">
-          {{csrf_field()}}
-          <div class="field">
-            <label for="name" class="label">Name</label>
-            <p class="control">
-              <input type="text" class="input" name="name" id="name">
-            </p>
-          </div>
+              {!! csrf_field() !!}
 
-          <div class="field">
-            <label for="email" class="label">Email:</label>
-            <p class="control">
-              <input type="text" class="input" name="email" id="email">
-            </p>
-          </div>
+        <table>
+          <tr>
+            <td>
+              <label for="full-name"><b>Name</b></label><br>
+              <input type="text" name="name" id="name" class="form-control" required></br>
+            </td>
+          </tr>
 
-          <div class="field">
-            <label for="password" class="label">Password</label>
-            <p class="control">
-              <input type="text" class="input" name="password" id="password" placeholder="Manually give a password to this user">
+          <tr>
+            <td>   
+              <br><label for="email"><b>Email</b></label><br>
+              <input type="email" name="email" id="email" class="form-control" required></br>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <br><label for="password"><b>Password</b></label><br>
+              <input type="text" name="password" id="password" class="form-control" placeholder="Manually give a password to this user" required></br>
               <!--<b-checkbox name="auto_generate" class="m-t-15" v-model="auto_password">Auto Generate Password</b-checkbox>-->
+            </td>
+          </tr>
+          
+          <tr>
+            <label for="role" style="margin-right:310px"><b>Role</b></label>
+            <p class="control" style="text-align:left; padding-left:60px;">
+              @foreach ($roles as $role)
+              <input type="radio" class="form-control" name="role" value="{{$role->id}}" required>{{ $role->display_name}}<br>
+              @endforeach
             </p>
-          </div>
+          </tr> 
 
-          <button class="button is-success">Create User</button>
+          <tr>
+            <td>
+              <center><br>
+              <input type="button" onclick="window.location.href='/admin/users'" value="Close">
+              <input type="submit" value="Save" class="button is-success">
+              </center><br>
+            </td>
+          </tr>
+        </table>
         </form>
       </div>
     </div>
-
-  </div> <!-- end of .flex-container -->
-
-    <br>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </x-app-layout>

@@ -19,7 +19,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::all();
+        return view('admin.users.create')->with('roles', $roles);
     }
 
     public function store(Request $request)
@@ -29,33 +30,40 @@ class UserController extends Controller
             'email' => 'required|email|unique:users'
           ]);
         
-       
-
+        $role = $request->role;
 
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        
+        $user->save();  
+        $user->attachRole($role);
 
-      if ($user->save()) {
-        return redirect()->route('users.show', $user->id);
-      } else {
-        Session::flash('danger', 'Sorry a problem occurred while creating this user.');
-        return redirect()->route('users.create');
-      }
+        
+        return redirect()->route('users.index')
+            ->withSuccess(__('User created successfully.'));
+
+      // if ($user->save()) {
+      //   return redirect()->route('users.show', $user->id);
+      // } else {
+      //   Session::flash('danger', 'Sorry a problem occurred while creating this user.');
+      //   return redirect()->route('users.create');
+      // }
     }
 
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('id', $id)->with('roles')->first();
         return view('admin.users.show')->withUser($user);
     }
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.users.edit')->withUser($user);
+        $roles = Role::all();
+        $user = User::where('id',$id)->with('roles')->first();
+        return view('admin.users.edit')->withUser($user)->withRoles($roles);
     }
 
     public function update(Request $request, $id)
@@ -72,18 +80,26 @@ class UserController extends Controller
         if ($request->password_options == 'manual') {
             $user->password = Hash::make($request->password);
           }
-        
-          if ($user->save()) {
-            return redirect()->route('users.show', $id);
-          } else {
-            Session::flash('error', 'There was a problem saving the updated user info to the database. Try again later.');
-            return redirect()->route('users.edit', $id);
-          }
+        $user->save();
+
+        $user->syncRoles(explode(',', $request->role));
+        return redirect()->route('users.index', $id)
+            ->withSuccess(__('User updated successfully.'));
+        //   if ($user->save()) {
+        //     return redirect()->route('users.show', $id);
+        //   } else {
+        //     Session::flash('error', 'There was a problem saving the updated user info to the database. Try again later.');
+        //     return redirect()->route('users.edit', $id);
+        //   }
     }
 
     public function destroy($id)
     {
-        User::destroy($id);
-        return redirect('admin.users.index')->with('flash_message', 'User deleted!');
+        $user = User::find($id);
+        $user->delete();
+
+        Session::flash('message', 'Successfully deleted the product!');
+        return redirect()->route('users.index')
+            ->withSuccess(__('User deleted successfully.'));
     }
 }

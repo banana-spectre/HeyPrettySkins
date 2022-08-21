@@ -19,8 +19,13 @@ class Products extends Model
         'total_qty'
     ];
 
-    /*public function inventory()
+    public function inventory()
     {
         return $this->hasMany(Inventory::class);
-    }*/
+    }
+    
+    public function orders()
+    {
+        return $this->belongsToMany(Orders::class);
+    }
 }

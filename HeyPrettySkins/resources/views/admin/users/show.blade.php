@@ -1,50 +1,41 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <x-slot name="header"></x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Users page!
-                    <div class="row">
+<div class="container-fluid"> 
 
-                    <center>			
-				<div class="view-user-modal-content">
-					<header class="view-user-container">
-						<span onclick="window.location.href='/employees'".style.display='none' class="button display-topright"><img src="{{ asset ('pictures/close.png') }}" style="width:20px; padding-top:8px"></span>
-					</header>
-						<div class="view-user-container">
-							
-							<h2 id="employees">USER CARD</h2>	
-
-							<table style="border-top:1px solid #F42B6D">
-								<tr>
-									<td class="view-user-column">Name: <div class="view-user-column2"><br>{{ $user->name }}</div></td>
-								<tr>
+	<center>			
+	<div class="view-user-container-1">
+		<header id="close-button">
+			<span onclick="window.location.href='/admin/users'".style.display='none' class="close-button display-topright"><img src="{{ asset ('pictures/close.png') }}" style="width:20px; padding-top:8px"></span>
+		</header>
+		<div class="view-user-container">							
+			<h2 id="employees">USER CARD</h2>	
+			<table style="border-top:1px solid #F42B6D">
+				<tr>
+					<td class="view-user-column">Name: <div class="view-user-column2"><br>{{ $user->name }}</div></td>
+				<tr>
 								
-								<tr>
-									<td class="view-user-column">Email: <div class="view-user-column2"><br>{{ $user->email }}</div></td>
-								</tr>
+				<tr>
+					<td class="view-user-column">Email: <div class="view-user-column2"><br>{{ $user->email }}</div></td>
+				</tr>
+								
+				<tr>
+					<td class="view-user-column">Role: <div class="view-user-column2"><br>
+						{{ $user->roles->count() == 0 ? 'This user does not have any roles yet': ''}}
+						@foreach ($user->roles as $role)
+						{{ $role->display_name }}
+						@endforeach
+					</div></td>
+				</tr>
+								
+				<tr>
+					<td class="view-user-column"></td>
+				</tr>
+			</table>
 
-								<tr>
-									<td class="view-user-column"></td>
-								</tr>
-							</table>
+		</div>
+	</div>
+    </center>
 
-						</div>
-				</div>
-			</div>
-			</div>
-      </center>
-      </div>
-
-    <br>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 </x-app-layout>
