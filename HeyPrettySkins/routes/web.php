@@ -22,6 +22,7 @@ use App\Http\Controllers\Executive_Secretary\ExecOrderController;
 use App\Http\Controllers\Sales_Manager\SM_orderController;
 //Accounting Head
 use App\Http\Controllers\Accounting_Head\AcctngInvoiceController;
+use App\Http\Controllers\Accounting_Head\AcctngMonthlySalesController;
 
 //Warehouse Manager
 use App\Http\Controllers\Warehouse_Manager\InventoryController;
@@ -109,6 +110,7 @@ Route::group(['middleware' => ['auth', 'role:accounting_head']], function(){
     Route::prefix('accounting_head')->group(function (){
         //Put every links or URL or routes here for acc
         Route::resource('acctng_invoice', AcctngInvoiceController::class);
+        Route::resource('acctng_monthly_sales', AcctngMonthlySalesController::class);
     });
 }); 
 //WAREHOUSE MANAGER ROUTES

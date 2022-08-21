@@ -24,12 +24,12 @@
 
                         <tr><td><br></td></tr>
 
-                        @foreach ($orders as $order)
+                        
                         <tr>
                             <td class="sales-info" width="50rem"><b>&emsp;1</b></td>
-                            <td class="sales-info" width="400rem" style="padding-left:20px;">{{ $order->id }}</td>
-                            <td class="sales-info" width="350rem" style="padding-left:20px;">{{ $order->created_at }}</td>
-                            <td class="sales-info" width="300rem" style="padding-left:20px;">{{ $order->total}}</td>
+                            <td class="sales-info" width="400rem" style="padding-left:20px;">003123</td>
+                            <td class="sales-info" width="350rem" style="padding-left:20px;">July 1, 2022</td>
+                            <td class="sales-info" width="300rem" style="padding-left:20px;">Php 12, 000</td>
                             <td class="sales-info" width="400rem" style="padding-left:20px;">----</td>
                             <td width="100rem" class="product-info-col">
                                 <center>
@@ -40,7 +40,6 @@
                         <tr>
                             <td colspan="8"><br><hr><br></td>
                         </tr>
-                        @endforeach
                 
                     </table>                   
                 </td>

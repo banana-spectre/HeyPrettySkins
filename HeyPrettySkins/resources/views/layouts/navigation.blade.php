@@ -75,11 +75,11 @@
 				</x-nav-link></li>
 
 
-				<br>
+				<!-- <br>
 				<li class="sub-menu-2"><x-nav-link>
 					<span class="icon"><img src="{{ asset('pictures/transactions.png') }}" class="icon"></span>
 					<span class="components-text">&emsp;{{ __('Transactions') }}
-						<div class="sub-menu-contents-2">
+						<ul class="sub-menu-contents-2"> -->
 							<!-- <x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
 								<span class="components-text">{{ __('Purchase Order Form') }}</span>
 							</x-nav-link>
@@ -89,8 +89,8 @@
 							<!-- <x-nav-link :href="route('delivery_receipt.index')" :active="request()->routeIs('delivery_receipt.index')">
 								<span class="components-text">{{ __('Delivery Receipt') }}</span>
 							</x-nav-link> -->
-						</div></span>
-				</x-nav-link></li>
+						<!-- </ul></span>
+				</x-nav-link></li> -->
                 @endif
 
 				<!-- DEPOT -->
@@ -98,19 +98,20 @@
 				<br>	
 				<li class="sub-menu-2"><x-nav-link>
 					<span class="icon"><img src="{{ asset('pictures/order-requests.png') }}" class="icon"></span>
-					<span class="components-text">&emsp;{{ __('Orders') }}</span>
-						<div class="sub-menu-contents-2">
+					<span class="components-text">&emsp;{{ __('Orders') }}
+						<div class="sub-menu-components-2">
 							<x-nav-link :href="route('order.create')" :active="request()->routeIs('order.create')">
 								&emsp;{{ __('Create') }}
 							</x-nav-link>
+
 							<x-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
 								&emsp;{{ __('Status') }}
 							</x-nav-link>
-						</div>
+						</div></span>
 				</x-nav-link></li>
 			
 
-				<br>
+				<!-- <br>
 				<li class="sub-menu-2"><x-nav-link>
 					<span class="icon"><img src="{{ asset('pictures/transactions.png') }}" class="icon"></span>
 					<span class="components-text">&emsp;{{ __('Transactions') }}
@@ -119,7 +120,7 @@
 								&emsp;{{ __('Invoice') }}
 							</x-nav-link>
 						</div></span>
-				</x-nav-link></li>
+				</x-nav-link></li> -->
                 @endif
 
 				<!-- CEO -->
@@ -127,37 +128,37 @@
 				 <br>	
 				<li><x-nav-link :href="route('ceo_monthly_sales_report.index')" :active="request()->routeIs('ceo_monthly_sales_report.index')">
 					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
-					<span class="components-text">&emsp;{{ __('') }}</span>
+					<span class="components-text">&emsp;{{ __('Monthly Sales') }}</span>
 				</x-nav-link></li>
                 @endif
 
 				<!-- ACCOUNTING HEAD -->
 				@if (Auth::user()->hasRole('accounting_head'))
 				<br>	
-				<li><x-nav-link :href="route('acctng_invoice.index')" :active="request()->routeIs('acctng_invoice.index')">
+				<li><x-nav-link :href="route('acctng_monthly_sales.index')" :active="request()->routeIs('acctng_monthly_sales.index')">
 					<span class="icon"><img src="{{ asset('pictures/products.png') }}" class="icon"></span>
-					<span class="components-text">{{ __('Monthly Sales Report') }}</span>
+					<span class="components-text">{{ __('Monthly Sales') }}</span>
 				</x-nav-link></li>	
 				
-				<br>	
+				<!-- <br>	
 				<li><x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
 					<span class="icon"><img src="{{ asset('pictures/inventory.png') }}" class="icon"></span>
 					<span class="components-text">&emsp;{{ __('Proof of Payment') }}</span>
-				</x-nav-link></li>
+				</x-nav-link></li> -->
 				
-				<br>
+				<!-- <br>
 				<li class="sub-menu-2"><x-nav-link>
 					<span class="icon"><img src="{{ asset('pictures/transactions.png') }}" class="icon"></span>
 					<span class="components-text">&emsp;{{ __('Transactions') }}
 						<div class="sub-menu-contents-2" style="top:34vh">
-							<!-- <x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
+							<x-nav-link :href="route('purchase_order_form.index')" :active="request()->routeIs('purchase_order_form.index')">
 								&emsp;{{ __('Purchase Order Form') }}
-							</x-nav-link> -->
+							</x-nav-link>
 							<x-nav-link :href="route('acctng_invoice.index')" :active="request()->routeIs('acctng_invoice.index')">
 								&emsp;{{ __('Invoice') }}
 							</x-nav-link>
 						</div></span>
-				</x-nav-link></li>
+				</x-nav-link></li> -->
                 @endif
 
 				<!-- EXECUTIVE SECRETARY -->
